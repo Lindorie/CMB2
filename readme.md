@@ -24,11 +24,11 @@ Complete contributors list found here: [github.com/WebDevStudios/CMB2/graphs/con
 
 ## Description
 
-** This fork fixes the non-US format date issue with jQuery Datepicker on text_date_timestamp custom field type. **
+**This fork fixes the non-US format date issue with jQuery Datepicker on text_date_timestamp custom field type.**
 
 The file `includes/CMB2_Sanitize.php` is modified. See the `text_date_timestamp` function.
 
-** Usage **
+**Usage**
 
 Add this code on your functions.php file (replace "yourprefix" by your prefix...):
 
