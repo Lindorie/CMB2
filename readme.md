@@ -24,6 +24,34 @@ Complete contributors list found here: [github.com/WebDevStudios/CMB2/graphs/con
 
 ## Description
 
+** This fork fixes the non-US format date issue with jQuery Datepicker on text_date_timestamp custom field type. **
+
+The file `includes/CMB2_Sanitize.php` is modified. See the `text_date_timestamp` function.
+
+** Usage **
+
+Add this code on your functions.php file (replace "yourprefix" by your prefix...):
+
+```
+	function yourprefix_custom_cmb2_date_format( $data ) {
+		$data['defaults']['date_picker']['dateFormat'] = _x( 'dd/mm/yy', 'Valid formatDate string for jquery-ui datepicker','cmb2' );
+		$data['defaults']['date_picker']['firstDay'] = 1; // Set 1 for Monday or 0 for Sunday (default)
+		return $data;
+	}
+	add_filter( 'cmb2_localized_data', 'yourprefix_custom_cmb2_date_format' );
+```
+
+Set the date_format option in your custom field type. Example:
+
+```
+	$fieldname->add_field( array (
+		'name' 			=> __ ( 'Date', 'cmb2' ),
+		'id' 			=> $prefix .'idname',
+		'type' 			=> 'text_date_timestamp',
+		'date_format'	=> 'd\/m\/Y' // Default: 'm\/d\/Y'
+	) );
+```
+
 CMB2 is a developer's toolkit for building metaboxes, custom fields, and forms for WordPress that will blow your mind.
 
 **[Download plugin on wordpress.org](http://wordpress.org/plugins/cmb2/)**

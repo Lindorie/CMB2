@@ -209,7 +209,24 @@ class CMB2_Sanitize {
 	 * @return string       Timestring
 	 */
 	public function text_date_timestamp() {
-		return is_array( $this->value ) ? array_map( 'strtotime', $this->value ) : strtotime( $this->value );
+
+		/**
+		 * Fix Non-US format date
+		 *
+		 * Previous value: return is_array( $this->value ) ? array_map( 'strtotime', $this->value ) : strtotime( $this->value );
+		 *
+		 * STRTOTIME DOC
+		 * Dates in the m/d/y or d-m-y formats are disambiguated by looking at the separator between the various components:
+		 * if the separator is a slash (/), then the American m/d/y is assumed; whereas if the separator is a dash (-) or a dot (.), then the European d-m-y format is assumed.
+		 *
+		 * Note: To avoid potential ambiguity, it's best to use ISO 8601 (YYYY-MM-DD) dates or DateTime::createFromFormat() when possible.
+		 */
+		$date = str_replace('/', '-', $this->value);
+		if ( is_array( $this->value ) ) {
+			return array_map( 'strtotime', $date );
+		} else {
+			return strtotime( $date );
+		}
 	}
 
 	/**
